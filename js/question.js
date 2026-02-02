@@ -7,58 +7,52 @@
     alert("dorosła decyzja siurku");
   });
 
-  // "Nie" ma uciekać i zawsze być widoczne nad wszystkim
-  const margin = 10;
+  const padding = 10;
 
-  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+  function moveNo(mouseX, mouseY) {
+    const stageRect = stage.getBoundingClientRect();
+    const btnRect = btnNo.getBoundingClientRect();
 
-  const moveNo = (clientX, clientY) => {
-    const rect = stage.getBoundingClientRect();
-    const b = btnNo.getBoundingClientRect();
+    // losowa nowa pozycja
+    let x = Math.random() * (stageRect.width - btnRect.width - padding * 2) + padding;
+    let y = Math.random() * (stageRect.height - btnRect.height - padding * 2) + padding;
 
-    // losowy skok + odpychanie od kursora
-    const randX = (Math.random() * 2 - 1) * 140;
-    const randY = (Math.random() * 2 - 1) * 70;
+    // zabezpieczenie – zawsze w granicach
+    x = Math.max(padding, Math.min(x, stageRect.width - btnRect.width - padding));
+    y = Math.max(padding, Math.min(y, stageRect.height - btnRect.height - padding));
 
-    const fromX = clientX - rect.left;
-    const fromY = clientY - rect.top;
+    btnNo.style.left = `${x}px`;
+    btnNo.style.top = `${y}px`;
+  }
 
-    let x = fromX + randX;
-    let y = fromY + randY;
+  // startowa pozycja – zawsze widoczna
+  moveNo();
 
-    // trzymamy w granicach stage
-    x = clamp(x, margin, rect.width - b.width - margin);
-    y = clamp(y, margin, rect.height - b.height - margin);
-
-    btnNo.style.transform = `translate(${x}px, ${y}px)`;
-  };
-
-  // startowa pozycja (żeby nie było, że “znika”)
-  requestAnimationFrame(() => {
-    btnNo.style.transform = `translate(0px, 0px)`;
+  // ucieka przy najechaniu
+  btnNo.addEventListener("mouseenter", (e) => {
+    moveNo(e.clientX, e.clientY);
   });
 
-  // ucieka przy najechaniu i przy podejściu kursora
-  btnNo.addEventListener("mouseenter", (e) => moveNo(e.clientX, e.clientY));
+  // ucieka gdy kursor się zbliży
   stage.addEventListener("mousemove", (e) => {
-    // jeśli kursor blisko — uciekaj
-    const noRect = btnNo.getBoundingClientRect();
-    const dx = e.clientX - (noRect.left + noRect.width / 2);
-    const dy = e.clientY - (noRect.top + noRect.height / 2);
+    const r = btnNo.getBoundingClientRect();
+    const dx = e.clientX - (r.left + r.width / 2);
+    const dy = e.clientY - (r.top + r.height / 2);
     const dist = Math.hypot(dx, dy);
-    if (dist < 120) moveNo(e.clientX, e.clientY);
+
+    if (dist < 120) {
+      moveNo(e.clientX, e.clientY);
+    }
   });
 
-  // mobile: jak dotknie w okolicy "nie" to też przeskakuje
-  stage.addEventListener("touchstart", (e) => {
-    const t = e.touches[0];
-    if (!t) return;
-    moveNo(t.clientX, t.clientY);
+  // mobile – dotyk = teleport
+  stage.addEventListener("touchstart", () => {
+    moveNo();
   }, { passive: true });
 
-  // jakimś cudem kliknie? i tak nie pozwalamy
+  // nawet jak kliknie – i tak ucieknie 😈
   btnNo.addEventListener("click", (e) => {
     e.preventDefault();
-    moveNo(window.innerWidth * Math.random(), window.innerHeight * Math.random());
+    moveNo();
   });
 })();
