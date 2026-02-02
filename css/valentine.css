@@ -1,0 +1,83 @@
+.theme-valentine{
+  --bg: #07030a;
+  --card: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 143, 189, 0.18);
+  --text: rgba(255,255,255,0.95);
+  --muted: rgba(255,255,255,0.78);
+
+  --primary: #ff4d8d;
+  --danger: #ff3b3b;
+}
+
+.valCard{
+  border-color: rgba(255, 77, 141, 0.28);
+  background:
+    radial-gradient(900px 480px at 20% 15%, rgba(255, 77, 141, 0.18), transparent 55%),
+    radial-gradient(800px 520px at 85% 20%, rgba(255, 255, 255, 0.08), transparent 60%),
+    var(--card);
+}
+
+.glow{
+  position:absolute;
+  inset:-2px;
+  pointer-events:none;
+  background: radial-gradient(600px 260px at 30% 10%, rgba(255,77,141,0.25), transparent 60%);
+  filter: blur(12px);
+  opacity: 0.9;
+}
+
+.triActions{
+  position: relative;
+  min-height: 140px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-start;
+  padding-top: 8px;
+}
+
+.big{ padding: 14px 18px; font-size: 16px; border-radius: 16px; }
+
+.runaway{
+  position: absolute;
+  right: 14px;
+  top: 10px;
+  z-index: 9999; /* zawsze na wierzchu */
+  will-change: transform;
+}
+
+.final .card{
+  padding-bottom: 22px;
+}
+
+.media{
+  margin-top: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 77, 141, 0.22);
+  background: rgba(0,0,0,0.22);
+  overflow:hidden;
+}
+
+.finalGif{
+  width:100%;
+  max-height: 420px;
+  object-fit: cover;
+  display:block;
+}
+
+.gifFallback{
+  padding: 18px;
+  color: rgba(255,255,255,0.78);
+}
+
+.fx{
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events:none;
+}
+
+.theme-valentine .wrap{ position: relative; z-index: 1; }
