@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weryfikacja</title>
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/neutral.css" />
+  <script defer src="../js/common.js"></script>
+  <script defer src="../js/verify.js"></script>
+</head>
+<body class="theme-neutral">
+  <main class="wrap">
+    <section class="card">
+      <h1 class="title">Tylko upewnię się, że to Ty.</h1>
+      <p class="lead">Odpowiedz na pytanie, które zna tylko Blanka.</p>
+
+      <form id="verifyForm" class="form">
+        <label class="label" for="answer">Pytanie (edytujesz w kodzie):</label>
+        <div class="questionBox" id="questionText"></div>
+
+        <input id="answer" name="answer" class="input" autocomplete="off" placeholder="Twoja odpowiedź..." />
+        <button class="btn primary" type="submit">Sprawdź</button>
+      </form>
+
+      <p id="verifyMsg" class="msg" aria-live="polite"></p>
+    </section>
+  </main>
+</body>
+</html>
