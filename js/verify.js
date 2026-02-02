@@ -4,11 +4,13 @@
   const msg = document.getElementById("verifyMsg");
 
   // ✅ EDYTUJ TO:
-  const QUESTION = "Jak nazywa się (wpisz tu pytanie kontrolne)?";
+  const QUESTION = "Jak najczęściej Łukasz Cię nazywa, kiedy chce skomplementować Twój wygląd?";
   // Możesz dać kilka wariantów odpowiedzi (małe/duże litery ignorujemy)
   const ACCEPTED = [
-    "poprawna odpowiedź",
-    "poprawna odpowiedz bez polskich znakow"
+    "Rakieta",
+    "rakieta",
+    "jesteś rakieta",
+    "jestes rakieta"
   ];
 
   questionText.textContent = QUESTION;
@@ -47,3 +49,4 @@
     }, 650);
   });
 })();
+
